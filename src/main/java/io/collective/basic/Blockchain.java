@@ -26,16 +26,23 @@ public class Blockchain {
     }
 
     public boolean isValid() throws NoSuchAlgorithmException {
+        if (isEmpty()) return true;
 
-        // todo - check mined
-        Boolean isMined = isMined(currentBlock);
-
-        // todo - check previous hash matches
-        Boolean previousHashMatches = currentBlock.getPreviousHash().equals(lastBlock.getHash());
-
-        // todo - check hash is correctly calculated
+        if (isMined(currentBlock) &&
+            previousHashMatches(lastBlock, currentBlock) &&
+            hashIsCorrectlyCalculated(currentBlock)) {
+            return true;
+        }
 
         return false;
+    }
+
+    private boolean hashIsCorrectlyCalculated(Block currentBlock) throws NoSuchAlgorithmException {
+        return currentBlock.getHash().equals(currentBlock.calculatedHash());
+    }
+
+    private boolean previousHashMatches(Block lastBlock, Block currentBlock) {
+        return lastBlock == null || lastBlock.getHash().equals(currentBlock.getPreviousHash());
     }
 
     /// Supporting functions that you'll need.

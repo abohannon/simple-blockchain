@@ -52,11 +52,11 @@ public class BlockchainTest {
     @Test
     public void isValid() throws NoSuchAlgorithmException {
         assertTrue(empty.isValid());
-        // assertTrue(one.isValid());
-        // assertTrue(many.isValid());
+        assertTrue(one.isValid());
+        assertTrue(many.isValid());
     }
 
-    @Ignore
+    @Test
     public void isNotValid_whenOneIsNotMined() throws NoSuchAlgorithmException {
         Block genesis = new Block("0", Instant.now().getEpochSecond(), 0);
 
@@ -66,7 +66,7 @@ public class BlockchainTest {
         assertFalse(notValid.isValid());
     }
 
-    @Ignore
+    @Test
     public void isNotValid_whenManyAreNotMined() throws NoSuchAlgorithmException {
         Block genesis = new Block("0", Instant.now().getEpochSecond(), 0);
         Block second = new Block(genesis.getHash(), Instant.now().getEpochSecond(), 0);
@@ -78,7 +78,7 @@ public class BlockchainTest {
         assertFalse(notValid.isValid());
     }
 
-    @Ignore
+    @Test
     public void isNotValid_forIncorrectPreviousHash() throws NoSuchAlgorithmException {
         Block genesis = mine(new Block("0", Instant.now().getEpochSecond(), 0));
         Block second = mine(new Block("anIncorrectHash", Instant.now().getEpochSecond(), 0));
@@ -90,7 +90,7 @@ public class BlockchainTest {
         assertFalse(notValid.isValid());
     }
 
-    @Ignore
+    @Test
     public void isValid_HashIncorrect() throws NoSuchAlgorithmException, NoSuchFieldException, IllegalAccessException {
         Blockchain invalid = new Blockchain();
         Block minedBlock = mine(new Block("0", Instant.now().getEpochSecond(), 0));
